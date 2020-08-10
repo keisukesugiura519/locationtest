@@ -16,6 +16,7 @@ struct ContentView: View {
     @State var horizontalAccuracy = "Accuracy"
     @State var buttonStatus = "stop"
     @State var isTap:Bool = false
+    @State var isAuthorization:Bool=false
 
     var body: some View {
         VStack {
@@ -46,12 +47,23 @@ struct ContentView: View {
                         locationgetter.locationRequest()
                         latitude = locationgetter.getLatitude()
                         longitude = locationgetter.getLongitude()
-                        horizontalAccuracy = locationgetter.Accuracy
+                        horizontalAccuracy = locationgetter.getAccuracy()
                     }
                 }, label: {
                     Text("update")
                 })
             }.offset(x: 0, y: 100)
+            Button(action: {
+                debugPrint("update?")
+                if locationgetter.getisAuthorization() {
+                    locationgetter.locationRequest()
+                    latitude = locationgetter.getLatitude()
+                    longitude = locationgetter.getLongitude()
+                    horizontalAccuracy = locationgetter.getAccuracy()
+                }
+            }, label: {
+                Text("getFullLocation")
+            })
         }
     }
 }

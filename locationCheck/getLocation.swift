@@ -10,9 +10,9 @@ import CoreLocation
 
 class getLocation:NSObject, CLLocationManagerDelegate {
 
-    var latitude: String = ""
-    var longitude: String = ""
-    var Accuracy: String = ""
+    fileprivate var latitude: String = ""
+    fileprivate var longitude: String = ""
+    fileprivate var Accuracy: String = ""
     var locationManager = CLLocationManager()
 
     override init() {
@@ -33,6 +33,20 @@ class getLocation:NSObject, CLLocationManagerDelegate {
         locationManager.requestLocation()
         debugPrint(latitude)
         debugPrint(longitude)
+    }
+    
+    func getisAuthorization() -> Bool{
+        var isAuthorization:Bool = false
+        if locationManager.accuracyAuthorization == .reducedAccuracy {
+            locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "full") {_ in
+                if self.locationManager.accuracyAuthorization == .fullAccuracy {
+                    isAuthorization = true
+                }
+            }
+        } else if locationManager.accuracyAuthorization == .fullAccuracy {
+            isAuthorization = true
+        }
+        return isAuthorization
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -71,6 +85,10 @@ class getLocation:NSObject, CLLocationManagerDelegate {
     
     func getLongitude() -> String {
         return longitude
+    }
+    
+    func getAccuracy() -> String {
+        return Accuracy
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

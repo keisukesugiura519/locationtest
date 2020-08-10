@@ -50,7 +50,10 @@
 	<string>Allow this application to permanently obtain location information</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow this application to temporarily retrieve location information</string>
-	<key>aFewMinutes</key>
-	<string>need accurate location information</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+        <key>full</key>
+        <string>full location</string>
+    </dict>
 </dict>
 </plist>
